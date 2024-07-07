@@ -4,6 +4,10 @@ import viteLogo from "/vite.svg";
 import axios from "axios";
 import "./App.css";
 import Register from "./pages/Register";
+import VotingPage from "./pages/VotingPage";
+import Login from "./pages/Login";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -19,7 +23,9 @@ function App() {
   return (
     <>
       <div className='flex'>
-        <Register />
+        <Provider store={store}>
+          <VotingPage />
+        </Provider>
       </div>
     </>
   );
