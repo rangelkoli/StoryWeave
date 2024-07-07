@@ -8,7 +8,22 @@ import VotingPage from "./pages/VotingPage";
 import Login from "./pages/Login";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <VotingPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+]);
 function App() {
   const [count, setCount] = useState(0);
   const [storyweave, setStoryweave] = useState("");
@@ -24,7 +39,7 @@ function App() {
     <>
       <div className='flex'>
         <Provider store={store}>
-          <VotingPage />
+          <RouterProvider router={router}></RouterProvider>
         </Provider>
       </div>
     </>

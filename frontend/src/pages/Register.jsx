@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../features/auth/authSlice";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -10,25 +13,26 @@ const Register = () => {
     e.preventDefault();
     // Handle the registration logic here
     console.log("Registering:", email, password);
-    try {
-      const res = await axios.post(
-        "http://localhost:8000/register/",
-        {
-          email,
-          password,
-          username,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(res.data);
-    } catch (err) {
-      console.error(err);
-    }
+
+    const user = {
+      email,
+      password,
+      username,
+    };
+    dispatch(register(user));
   };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user, isLoading, isError, isSuccess, errorMessage } = useSelector(
+    (state) => state.auth
+  );
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/");
+    }
+  }, [isSuccess]);
 
   return (
     <div class='flex h-screen bg-indigo-700 w-screen'>
@@ -88,18 +92,18 @@ const Register = () => {
           </div>
         </form>
         <footer>
-          <a
+          {/* <a
             class='text-indigo-700 hover:text-pink-700 text-sm float-left'
             href='#'
           >
             Forgot Password?
-          </a>
-          <a
+          </a> */}
+          <Link
+            to='/login'
             class='text-indigo-700 hover:text-pink-700 text-sm float-right'
-            href='#'
           >
-            Create Account
-          </a>
+            Already have an account? Login
+          </Link>
         </footer>
       </div>
     </div>
