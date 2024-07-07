@@ -24,10 +24,15 @@ SECRET_KEY = "django-insecure-j)t)8b^zh_=@57giz$f19b!jd2mwa!zyqc7jo$kcrwq27_zinl
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# from supabase import create_client, Client
+
+# SUPABASE_URL = "https://aoppemcfoxurgconlzxu.supabase.co"
+# SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvcHBlbWNmb3h1cmdjb25senh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjAyODQ3NTYsImV4cCI6MjAzNTg2MDc1Nn0.VCY3ItzxtgGq6IJ5WUlYGVqmb5u4N5paASXwVcRP93o"
+# supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 ALLOWED_HOSTS = []
 
-
+CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     "storyweave",
     "corsheaders",
     "rest_framework",
+
 
 ]
 
