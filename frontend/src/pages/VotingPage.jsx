@@ -4,10 +4,52 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { setCredentials, logout } from "../features/auth/authSlice";
+
 export default function VotingPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    const token = localStorage.getItem("authTokens");
+    console.log(token);
+    const decoded = jwtDecode(token);
+    console.log(decoded);
+
+    if (token) {
+      dispatch(
+        setCredentials({
+          token,
+          username: decoded.username,
+          email: decoded.email,
+        })
+      );
+    }
+  }, []);
+
   return (
     <div className='w-full max-w-4xl mx-auto px-4 md:px-6 py-12'>
       <div className='grid gap-8'>
+        {user && (
+          <div className='flex items-center justify-between bg-green-100 px-4 py-2 rounded-lg'>
+            <p className='text-green-700 font-semibold'>
+              Welcome back, {user.username}!
+            </p>
+            <button
+              onClick={() => dispatch(logout())}
+              className='text-green-700 font-semibold'
+            >
+              Logout
+            </button>
+          </div>
+        )}
+
         <div>
           <h1 className='text-3xl font-bold'>Vote for the Next Chapter</h1>
           <p className='text-muted-foreground mt-2'>

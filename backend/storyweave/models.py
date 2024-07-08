@@ -1,38 +1,41 @@
-from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from .managers import CustomUserManager
-from django.utils.translation import gettext_lazy as _
+# myapp/models.py
 
-# Create your models here.
+from django.db import models
+from django.contrib.auth.models import User
 
 class Story(models.Model):
-    title = models.CharField(max_length=100)
+    story_id = models.BigAutoField(primary_key=True)
+    title = models.TextField()
+    summary = models.TextField()
+    creation_date = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Segment(models.Model):
+    segment_id = models.BigAutoField(primary_key=True)
     content = models.TextField()
-    author = models.CharField(max_length=100)
+    submission_time = models.DateTimeField(auto_now_add=True)
+    story = models.ForeignKey(Story, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Vote(models.Model):
+    vote_id = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    segment = models.ForeignKey(Segment, on_delete=models.CASCADE)
+    vote_time = models.DateTimeField(auto_now_add=True)
+
+class Comment(models.Model):
+    comment_id = models.BigAutoField(primary_key=True)
+    content = models.TextField()
+    submission_time = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    segment = models.ForeignKey(Segment, on_delete=models.CASCADE)
+    parent_comment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+
+class Profile(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.TextField()
+    bio = models.TextField()
+    profile_pic_url = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.title
-# Compare this snippet from backend/storyweave/serializers.py:
-    
-class User(models.Model):
-    email = models.EmailField(_("email address"), unique=True)
-    username = models.CharField(_("username"), max_length=150, blank=True)
-    is_staff = models.BooleanField(_("staff status"), default=False)
-    is_active = models.BooleanField(_("active"), default=True)
-
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
-
-    def __str__(self):
-        return self.email
-
-    def has_perm(self, perm, obj=None):
-        return self.is_staff
-
-    def has_module_perms(self, app_label):
-        return self.is_staff
-    
-    class Meta:
-        verbose_name = _("user")
-        verbose_name_plural = _("users")
+    updated_at = models.DateTimeField(auto_now=True)

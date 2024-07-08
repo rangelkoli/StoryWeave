@@ -25,12 +25,12 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, isLoading, isError, isSuccess, errorMessage } = useSelector(
-    (state) => state.auth
-  );
+  const { user, isLoading, isError, isSuccess, errorMessage, token } =
+    useSelector((state) => state.auth);
   useEffect(() => {
+    console.log(token);
     if (isSuccess) {
-      navigate("/");
+      navigate("/login");
     }
   }, [isSuccess]);
 

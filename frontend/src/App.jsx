@@ -9,11 +9,15 @@ import Login from "./pages/Login";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import LandingPage from "./pages/LandingPage";
+import Header from "./components/Header";
+import Stories from "./pages/Stories";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <VotingPage />,
+    element: <LandingPage />,
   },
   {
     path: "/login",
@@ -23,22 +27,24 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/voting",
+    element: <VotingPage />,
+  },
+  {
+    path: "/stories",
+    element: <Stories />,
+  },
 ]);
 function App() {
   const [count, setCount] = useState(0);
   const [storyweave, setStoryweave] = useState("");
 
-  useEffect(() => {
-    axios.get("http://localhost:8000/storyweave").then((res) => {
-      setStoryweave(res.data.message);
-      console.log(res.data);
-    });
-  }, []);
-
   return (
     <>
       <div className='flex'>
         <Provider store={store}>
+          <Header />
           <RouterProvider router={router}></RouterProvider>
         </Provider>
       </div>
