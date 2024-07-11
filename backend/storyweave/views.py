@@ -33,7 +33,9 @@ class RegisterView(APIView):
             return Response({'error': 'All fields are required'}, status=400)
         try:
             user = User.objects.create_user(username=username, password=password, email=email)
+            profile = Profile.objects.create(user=user)
             user.save()
+            profile.save()
             return Response({'message': 'User created successfully'}, status=201)
         except Exception as e:
             return Response({'error': str(e)}, status=500)
