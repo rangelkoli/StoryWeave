@@ -5,7 +5,7 @@
  */
 export default function Stories() {
   return (
-    <main class='w-full mx-auto py-12 px-4 md:px-6 '>
+    <main class='w-full  mx-auto py-12 px-4 md:px-6 '>
       <div class=' w-full  mx-auto py-12 px-4 md:px-6 flex items-center justify-between mb-8 flex-row'>
         <h1 class='text-3xl font-bold'>Ongoing Stories</h1>
         <div class='flex items-center gap-4'>
@@ -91,10 +91,7 @@ export default function Stories() {
         </div>
       </div>
       <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-        <div class='bg-background rounded-lg shadow-lg overflow-hidden'>
-          <div class='bg-primary text-primary-foreground px-6 py-4 font-semibold'>
-            Education
-          </div>
+        <div class='bg-gray-900 rounded-lg shadow-lg overflow-hidden'>
           <div class='p-6 space-y-4'>
             <img
               src='https://i0.wp.com/thinkfirstcommunication.com/wp-content/uploads/2022/05/placeholder-1-1.png?fit=1200%2C800&ssl=1'

@@ -13,6 +13,7 @@ import { jwtDecode } from "jwt-decode";
 import LandingPage from "./pages/LandingPage";
 import Header from "./components/Header";
 import Stories from "./pages/Stories";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/stories",
     element: <Stories />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
 function App() {

@@ -5,7 +5,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from .views import RegisterView, StoryListCreateView, SegmentListCreateView, VoteListCreateView, CommentListCreateView, ProfileListCreateView, CustomTokenObtainPairView
+from .views import RegisterView, StoryListCreateView, SegmentListCreateView, VoteListCreateView, CommentListCreateView, ProfileListCreateView, CustomTokenObtainPairView, getProfile
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
@@ -16,4 +16,5 @@ urlpatterns = [
     path('votes/', VoteListCreateView.as_view(), name='votes'),
     path('comments/', CommentListCreateView.as_view(), name='comments'),
     path('profiles/', ProfileListCreateView.as_view(), name='profiles'),
+    path('profile/', getProfile, name='profile'),
 ]

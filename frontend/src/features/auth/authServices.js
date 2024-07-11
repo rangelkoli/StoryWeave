@@ -29,8 +29,10 @@ const login = async (data) => {
         },
         });
         console.log(response.data);
-        
-        localStorage.setItem("authTokens", JSON.stringify(response.data));
+
+        const tokenAuth = JSON.stringify(response.data.access);
+        const tokenMain = tokenAuth.replace(/['"]+/g, '');
+        localStorage.setItem("authTokens", tokenMain);
         // const token = response.data.access;
 
         // return { token, username: decodedToken.username, email: decodedToken.email };

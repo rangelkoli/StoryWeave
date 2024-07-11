@@ -12,10 +12,12 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
 
         # Add custom claims
-        token['username'] = user.username
+        token['name'] = user.username
         token['email'] = user.email
+        token['user'] = user.id
 
         return token
+
 
 
 class UserSerializer(serializers.ModelSerializer):

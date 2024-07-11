@@ -11,31 +11,53 @@ import { jwtDecode } from "jwt-decode";
 import { setCredentials, logout } from "../features/auth/authSlice";
 
 export default function VotingPage() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  //   const dispatch = useDispatch();
+  //   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    const token = localStorage.getItem("authTokens");
-    console.log(token);
-    const decoded = jwtDecode(token);
-    console.log(decoded);
+  //   useEffect(() => {
+  //     const token = localStorage.getItem("authTokens");
+  //     console.log(token);
+  //     const decoded = jwtDecode(token);
+  //     console.log(decoded);
 
-    if (token) {
-      dispatch(
-        setCredentials({
-          token,
-          username: decoded.username,
-          email: decoded.email,
-        })
-      );
-    }
-  }, []);
+  //     if (token) {
+  //       dispatch(
+  //         setCredentials({
+  //           token,
+  //           username: decoded.username,
+  //           email: decoded.email,
+  //         })
+  //       );
+  //     }
+  //   }, []);
 
   return (
-    <div className='w-full max-w-4xl mx-auto px-4 md:px-6 py-12'>
-      <div className='grid gap-8'>
+    <div className='w-screen  mx-auto px-4 md:px-6 py-12 flex justify-center items-center'>
+      <div className='absolute bottom-0 w-screen bg-white border-t border-muted px-4 py-3 flex items-center gap-2'>
+        <button
+          variant='ghost'
+          size='icon'
+          className='text-muted-foreground hover:bg-muted/50'
+        >
+          <span className='sr-only'>AI Help</span>
+        </button>
+        <div className='relative flex-1'>
+          <textarea
+            placeholder='Type your message...'
+            className='pr-12 min-h-[48px] rounded-2xl resize-none p-4 border border-neutral-400 shadow-sm w-full'
+          />
+          <button
+            type='submit'
+            size='icon'
+            className='absolute w-8 h-8 top-3 right-3'
+          >
+            <span className='sr-only'>Send</span>
+          </button>
+        </div>
+      </div>
+      <div className='grid gap-8 max-w-6xl '>
         {user && (
           <div className='flex items-center justify-between bg-green-100 px-4 py-2 rounded-lg'>
             <p className='text-green-700 font-semibold'>
@@ -50,7 +72,7 @@ export default function VotingPage() {
           </div>
         )}
 
-        <div>
+        <div className=''>
           <h1 className='text-3xl font-bold'>Vote for the Next Chapter</h1>
           <p className='text-muted-foreground mt-2'>
             Help shape the story by voting for your favorite submission.

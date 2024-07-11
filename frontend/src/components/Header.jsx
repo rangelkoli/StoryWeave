@@ -25,20 +25,26 @@ const Header = () => {
     console.log(decoded);
 
     if (token != null && decoded != null) {
-      dispatch(
-        setCredentials({
-          token,
-          username: decoded.username,
-          email: decoded.email,
-        })
-      );
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        // Token has expired, perform logout
+        dispatch(logout());
+      } else {
+        dispatch(
+          setCredentials({
+            token,
+            username: decoded.username,
+            email: decoded.email,
+          })
+        );
+      }
     }
   }, []);
   return (
-    <header className='absolute inset-x-0 top-0 z-50 bg-white'>
+    <header className=' fixed inset-x-0 top-0 z-50 bg-white '>
       <nav
         aria-label='Global'
-        className='flex items-center justify-between p-6 lg:px-8'
+        className='flex items-center justify-between p-6 lg:px-8 h-14'
       >
         <div className='flex lg:flex-1'>
           <a href='#' className='-m-1.5 p-1.5'>
@@ -54,7 +60,7 @@ const Header = () => {
           <button
             type='button'
             onClick={() => setMobileMenuOpen(true)}
-            className='-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700'
+            className='-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white'
           >
             <span className='sr-only'>Open main menu</span>
             <Bars3Icon aria-hidden='true' className='h-6 w-6' />
@@ -72,15 +78,32 @@ const Header = () => {
           ))}
         </div>
         <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
-          <a href='#' className='text-sm font-semibold leading-6 text-gray-900'>
-            Log in <span aria-hidden='true'>&rarr;</span>
-          </a>
+          {user ? (
+            <div className='flex items-center justify-between bg-green-100 rounded-lg px-4'>
+              <p className='text-green-700 font-semibold'>
+                Welcome back, {user.username}!
+              </p>
+              <button
+                onClick={() => dispatch(logout())}
+                className='text-green-700 font-semibold'
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <a
+              href='/login'
+              className='-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
+            >
+              Log in
+            </a>
+          )}
         </div>
       </nav>
       <Dialog
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
-        className='lg:hidden'
+        className='lg:hidden bg-white text-white'
       >
         <div className='fixed inset-0 z-50' />
         <DialogPanel className='fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
@@ -96,7 +119,7 @@ const Header = () => {
             <button
               type='button'
               onClick={() => setMobileMenuOpen(false)}
-              className='-m-2.5 rounded-md p-2.5 text-gray-700'
+              className='-m-2.5 rounded-md p-2.5 text-white'
             >
               <span className='sr-only'>Close menu</span>
               <XMarkIcon aria-hidden='true' className='h-6 w-6' />

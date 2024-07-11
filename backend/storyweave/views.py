@@ -9,6 +9,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Story, Segment, Vote, Comment, Profile
 from .serializers import UserSerializer, StorySerializer, SegmentSerializer, VoteSerializer, CommentSerializer, ProfileSerializer, CustomTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from django.http import HttpResponse, JsonResponse
+
+
+
 
 
 
@@ -30,6 +37,22 @@ class RegisterView(APIView):
             return Response({'message': 'User created successfully'}, status=201)
         except Exception as e:
             return Response({'error': str(e)}, status=500)
+        
+
+
+def getProfile(request):
+    token = request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+    print(token)
+    jwt = JWTAuthentication()
+    user, validated_token = jwt.authenticate(request)
+    print(user)
+    profile = Profile.objects.get(user=user)
+    print(profile)
+    return JsonResponse({'username': user.username, 'email': user.email, "user_id": user.id, "token": token, "profile": profile.bio})
+    
+
+
+
 
 class StoryListCreateView(generics.ListCreateAPIView):
     queryset = Story.objects.all()

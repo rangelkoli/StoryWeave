@@ -24,7 +24,7 @@ export default function LandingPage() {
         </div>
         <div className='mx-auto max-w-2xl py-32 sm:py-48 lg:py-56'>
           <div className='hidden sm:mb-8 sm:flex sm:justify-center'>
-            <div className='relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20'>
+            <div className='relative rounded-full px-3 py-1 text-sm leading-6 text-white ring-1 ring-gray-900/10 hover:ring-gray-900/20'>
               Announcing our next round of funding.{" "}
               <a href='#' className='font-semibold text-indigo-600'>
                 <span aria-hidden='true' className='absolute inset-0' />
@@ -33,10 +33,10 @@ export default function LandingPage() {
             </div>
           </div>
           <div className='text-center'>
-            <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
+            <h1 className='text-4xl font-bold tracking-tight text-white sm:text-6xl'>
               Data to enrich your online business
             </h1>
-            <p className='mt-6 text-lg leading-8 text-gray-600'>
+            <p className='mt-6 text-lg leading-8 text-white'>
               Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
               lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
               fugiat aliqua.
@@ -57,6 +57,8 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+        <div className="relative bg-[#2c3e50] h-[50vh] content-[''] absolute before:bottom-[0] w-[0] h-[0] border-solid border-[99px_99px_0_99px] left-2/4 -translate-x-1/2 translate-y-full"></div>
+
         <div
           aria-hidden='true'
           className='absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]'
